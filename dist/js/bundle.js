@@ -11,18 +11,16 @@ const contentDiv = `<div class="content">${colors
   )
   .reduce((divString, item) => divString + item, '')}</div>`;
 
-const colorsCSS = `${colors
-  .map(
-    ({ color, code: { rgba } }) =>
-      `.card.card-${color}{background-color: rgba(${rgba})}`
-  )
-  .reduce((divString, item) => divString + item, '')};}`;
+const colorsCSS = colors.map(
+  ({ color, code: { rgba } }) =>
+    `.card.card-${color}{background-color: rgba(${rgba})}`
+);
 
 document.body.innerHTML = contentDiv;
 
 const styleCSS = document.createElement('style');
 
-styleCSS.innerHTML = `${styles}${colorsCSS}`;
+styleCSS.innerHTML = `${styles}${`${[...colorsCSS]}`.replace(/},./g, '}.')}`;
 
 document.head.appendChild(styleCSS);
 
